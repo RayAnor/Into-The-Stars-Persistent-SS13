@@ -321,7 +321,7 @@ Buildable meters
 
 	if(!usr || !Adjacent(usr))
 		return
-	
+
 	if(usr.incapacitated())
 		return
 
@@ -1341,7 +1341,7 @@ Buildable meters
 #undef PIPE_GAS_MIXER
 #undef PIPE_PASSIVE_GATE
 #undef PIPE_VOLUME_PUMP
-#undef PIPE_OUTLET_INJECT
+#undef INJECTOR
 #undef PIPE_MTVALVE
 #undef PIPE_MTVALVEM
 #undef PIPE_GAS_FILTER_M
@@ -1354,4 +1354,4 @@ Buildable meters
 #undef PIPE_SUPPLY_MANIFOLD
 #undef PIPE_SCRUBBERS_MANIFOLD
 #undef PIPE_UNIVERSAL
-//#undef PIPE_MANIFOLD4W
+#undef PIPE_MANIFOLD4W

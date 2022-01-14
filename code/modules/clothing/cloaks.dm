@@ -74,7 +74,7 @@
 	desc = "An elegant blue cloak with gold trimming. Worn by the commander of the station."
 	icon_state = "capcloak"
 
-	/obj/item/clothing/cloak/hop
-		name = "\improper Head of Personnel's Cloak"
-		desc = "An elegant blue cloak for ID changers and paper pushers."
-		icon_state = "hopcloak"
+/obj/item/clothing/cloak/hop
+	name = "\improper Head of Personnel's Cloak"
+	desc = "An elegant blue cloak for ID changers and paper pushers."
+	icon_state = "hopcloak"

@@ -2,9 +2,6 @@
 #error T_BOARD macro is not defined but we need it!
 #endif
 
-
-
-
 /obj/item/weapon/circuitboard/microwave
 	name = "circuit board (Microwave)"
 	build_path = /obj/machinery/microwave
@@ -78,9 +75,3 @@
 							/obj/item/weapon/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5,
 							/obj/item/weapon/stock_parts/console_screen = 1)
-
-
-
-
-//Undef the macro, shouldn't be needed anywhere else
-#undef T_BOARD_MECHA

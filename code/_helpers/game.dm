@@ -1,5 +1,3 @@
-//This file was auto-corrected by findeclaration.exe on 25.5.2012 20:42:31
-
 /proc/dopage(src,target)
 	var/href_list
 	var/href
@@ -270,12 +268,6 @@
 	for(var/obj/O in GLOB.listening_objects)
 		if(get_turf(O) in hearturfs)
 			objs |= O
-
-
-
-
-
-#define SIGN(X) ((X<0)?-1:1)
 
 proc
 	inLineOfSight(X1,Y1,X2,Y2,Z=1,PX1=16.5,PY1=16.5,PX2=16.5,PY2=16.5)

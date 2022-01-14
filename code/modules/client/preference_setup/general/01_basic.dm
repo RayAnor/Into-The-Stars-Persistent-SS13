@@ -101,12 +101,12 @@ datum/preferences
 					continue
 				if(WRC.name == "Undershirt")
 					pref.all_underwear[WRC.name] = "Shirt"
-					continue	
-					
+					continue
+
 		return TOPIC_REFRESH_UPDATE_PREVIEW
 
 	else if(href_list["age"])
-		var/new_age = input(user, "Choose your character's age:\n([S.min_age]-[S.max_age])", "Character Preference", pref.age) as num|null
+		var/new_age = input(user, "Choose your character's age:\n([S.min_age]-[S.max_age])", "Character Preference", pref.age) as num
 		if(new_age && CanUseTopic(user))
 			pref.age = max(min(round(text2num(new_age)), S.max_age), S.min_age)
 			return TOPIC_REFRESH

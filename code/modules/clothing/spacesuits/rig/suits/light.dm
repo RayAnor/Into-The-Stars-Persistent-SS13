@@ -102,8 +102,6 @@
 		/obj/item/rig_module/self_destruct
 		)
 
-	..()
-
 /obj/item/weapon/rig/light/ninja/verb/rename_suit()
 	set name = "Name Ninja Suit"
 	set desc = "Rename your black voidsuit."

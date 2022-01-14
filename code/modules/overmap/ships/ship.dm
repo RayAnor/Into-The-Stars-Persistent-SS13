@@ -89,9 +89,9 @@
 /obj/effect/overmap/ship/proc/decelerate()
 	if(!is_still() && can_burn())
 		if (speed[1])
-			adjust_speed(-SIGN(speed[1]) * min(get_burn_acceleration(),abs(speed[1])), 0)
+			adjust_speed(-SIMPLE_SIGN(speed[1]) * min(get_burn_acceleration(),abs(speed[1])), 0)
 		if (speed[2])
-			adjust_speed(0, -SIGN(speed[2]) * min(get_burn_acceleration(),abs(speed[2])))
+			adjust_speed(0, -SIMPLE_SIGN(speed[2]) * min(get_burn_acceleration(),abs(speed[2])))
 		last_burn = world.time
 
 /obj/effect/overmap/ship/proc/accelerate(direction)
@@ -140,7 +140,7 @@
 		return 0
 	for(var/datum/ship_engine/E in engines)
 		. |= E.can_burn()
-		
+
 //deciseconds to next step
 /obj/effect/overmap/ship/proc/ETA()
 	. = INFINITY

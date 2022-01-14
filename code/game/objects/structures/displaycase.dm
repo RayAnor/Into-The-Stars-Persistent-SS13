@@ -35,7 +35,7 @@
 					playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, 1)
 					del(src)
 					return
-				
+
 				else
 					if(circuit.one_access)
 						C.req_access = null
@@ -91,7 +91,7 @@
 	usr << "\blue Peering through the glass, you see that it contains:"
 	if(occupant)
 		usr << "\icon[occupant] \blue \A [occupant]"
-	else:
+	else
 		usr << "Nothing."
 
 /obj/structure/displaycase/proc/dump()

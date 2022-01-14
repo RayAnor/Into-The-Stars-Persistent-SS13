@@ -1133,7 +1133,6 @@
 // defines a state machine, returns the new state
 obj/machinery/power/apc/proc/autoset(var/cur_state, var/on)
 	switch(cur_state)
-		if(POWERCHAN_OFF); //autoset will never turn on a channel set to off
 		if(POWERCHAN_OFF_TEMP)
 			if(on == 1 || on == 2)
 				return POWERCHAN_ON
@@ -1146,9 +1145,7 @@ obj/machinery/power/apc/proc/autoset(var/cur_state, var/on)
 		if(POWERCHAN_ON_AUTO)
 			if(on == 0 || on == 2)
 				return POWERCHAN_OFF_AUTO
-
 	return cur_state //leave unchanged
-
 
 // damage and destruction acts
 /obj/machinery/power/apc/emp_act(severity)

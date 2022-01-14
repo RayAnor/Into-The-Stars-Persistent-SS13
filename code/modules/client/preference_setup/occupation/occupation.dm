@@ -1,8 +1,3 @@
-//used for pref.alternate_option
-#define GET_RANDOM_JOB 0
-#define BE_ASSISTANT 1
-#define RETURN_TO_LOBBY 2
-
 /datum/preferences
 	//Since there can only be 1 high job.
 	var/job_high = null
@@ -188,7 +183,7 @@
 	. += "</tt>"
 	**/
 	. = jointext(.,null)
-	
+
 /datum/category_item/player_setup_item/occupation/OnTopic(href, href_list, user)
 	if(href_list["reset_jobs"])
 		ResetJobs()

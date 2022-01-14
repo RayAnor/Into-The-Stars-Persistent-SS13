@@ -230,12 +230,12 @@
 		M << browse("<i>Author: [author].</i><br><br>" + "[dat]", "window=book;size=1000x550")
 		user.setClickCooldown(DEFAULT_QUICK_COOLDOWN) //to prevent spam
 
-		
+
 /obj/item/weapon/book/multipage
 	var/list/pages = list()
 	var/current_page = 0 // If 0 the book is closed
-	
-		
+
+
 /obj/item/weapon/book/multipage/attack_self(var/mob/user as mob)
 	if(carved)
 		if(store)
@@ -289,7 +289,7 @@
 		user.setClickCooldown(DEFAULT_QUICK_COOLDOWN) //to prevent spam
 
 /obj/item/weapon/book/multipage/proc/browse_mob(mob/living/carbon/M as mob)
-	
+
 	if(current_page)
 		if(current_page > pages.len)
 			current_page = 0
@@ -317,19 +317,19 @@
 			M << browse(dat + "<html><head><title>[title]</title></head>" \
 			+ "<body style='overflow:hidden'>" \
 			+ "<div> <center><img src='tmp_photo.png' width = '180'" \
-			+ "[P.scribble ? "<div><i>[P.scribble]</i>" : ]"\
+			+ "[P.scribble ? "<div><i>[P.scribble]</i>" : ""]"\
 			+ "</center></body></html>", "window=[title]")
-								
+
 	else
 		M << browse("<center><h1>[title]</h1></center><br><br><i>Authored: [author].</i><br><br>" + "<br><br><a href='?src=\ref[src];choice=next_page'>Open Book</a>", "window=[title]")
-		
+
 /obj/item/weapon/book/multipage/Topic(href, href_list)
 	if(..())
 		return 1
 	if((src in usr.contents) || Adjacent(usr))
 		usr.set_machine(src)
 		if(href_list["choice"])
-			switch(href_list["choice"])			
+			switch(href_list["choice"])
 				if("next_page")
 					if(current_page < pages.len)
 						current_page++
@@ -340,13 +340,13 @@
 						playsound(src.loc, "pageturn", 50, 1)
 				if("close_book")
 					current_page = 0
-					playsound(src.loc, "pageturn", 50, 1)		
-						
+					playsound(src.loc, "pageturn", 50, 1)
+
 			src.attack_self(usr)
 	else
 		to_chat(usr, "<span class='notice'>You need to hold it in hands!</span>")
-		
-		
+
+
 /*
  * Manual Base Object
  */

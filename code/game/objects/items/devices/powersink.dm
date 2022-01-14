@@ -11,9 +11,9 @@
 	throw_speed = 1
 	throw_range = 2
 
-	matter = list(MATERIAL_STEEL = 750)
+	matter = list(MATERIAL_STEEL = 750, MATERIAL_WASTE = 750)
 
-	origin_tech = list(TECH_POWER = 3, TECH_ILLEGAL = 5)
+	origin_tech = list(TECH_POWER = 3, TECH_ILLEGAL = 5, TECH_ESOTERIC = 5)
 	var/drain_rate = 1500000		// amount of power to drain per tick
 	var/apc_drain_rate = 5000 		// Max. amount drained from single APC. In Watts.
 	var/dissipation_rate = 20000	// Passive dissipation of drained power. In Watts.
@@ -25,63 +25,80 @@
 	var/datum/powernet/PN			// Our powernet
 	var/obj/structure/cable/attached		// the attached cable
 
+	var/const/DISCONNECTED = 0
+	var/const/CLAMPED_OFF = 1
+	var/const/OPERATING = 2
+
+/obj/item/device/powersink/update_icon()
+	icon_state = "powersink[mode == OPERATING]"
+	..()
+
+/obj/item/device/powersink/proc/set_mode(value)
+	if(value == mode)
+		return
+	switch(value)
+		if(DISCONNECTED)
+			attached = null
+			if(mode == OPERATING)
+				STOP_PROCESSING_POWER_OBJECT(src)
+			anchored = FALSE
+		if(CLAMPED_OFF)
+			if(!attached)
+				return
+			if(mode == OPERATING)
+				STOP_PROCESSING_POWER_OBJECT(src)
+			anchored = TRUE
+		if(OPERATING)
+			if(!attached)
+				return
+			START_PROCESSING_POWER_OBJECT(src)
+			anchored = TRUE
+	mode = value
+	update_icon()
+	set_light(0)
+
 /obj/item/device/powersink/Destroy()
-	if(mode == 2)
+	if(mode == OPERATING)
 		STOP_PROCESSING_POWER_OBJECT(src)
 	. = ..()
 
 /obj/item/device/powersink/attackby(var/obj/item/I, var/mob/user)
 	if(isScrewdriver(I))
-		if(mode == 0)
+		if(mode == DISCONNECTED)
 			var/turf/T = loc
 			if(isturf(T) && !!T.is_plating())
 				attached = locate() in T
 				if(!attached)
 					to_chat(user, "No exposed cable here to attach to.")
-					return
 				else
-					anchored = 1
-					mode = 1
+					set_mode(CLAMPED_OFF)
 					src.visible_message("<span class='notice'>[user] attaches [src] to the cable!</span>")
-					return
 			else
 				to_chat(user, "Device must be placed over an exposed cable to attach to it.")
-				return
 		else
-			if (mode == 2)
-				STOP_PROCESSING_POWER_OBJECT(src)
-			anchored = 0
-			mode = 0
+			set_mode(DISCONNECTED)
 			src.visible_message("<span class='notice'>[user] detaches [src] from the cable!</span>")
-			set_light(0)
-			icon_state = "powersink0"
-
-			return
 	else
-		..()
+		return ..()
 
 /obj/item/device/powersink/attack_ai()
 	return
 
 /obj/item/device/powersink/attack_hand(var/mob/user)
 	switch(mode)
-		if(0)
+		if(DISCONNECTED)
 			..()
-		if(1)
-			src.visible_message("<span class='notice'>[user] activates [src]!</span>")
-			mode = 2
-			icon_state = "powersink1"
-			START_PROCESSING_POWER_OBJECT(src)
-		if(2)  //This switch option wasn't originally included. It exists now. --NeoFite
+		if(CLAMPED_OFF)
+			user.visible_message("<span class='notice'>[user] activates [src]!</span>")
+			set_mode(OPERATING)
+		if(OPERATING)  //This switch option wasn't originally included. It exists now. --NeoFite
 			src.visible_message("<span class='notice'>[user] deactivates [src]!</span>")
-			mode = 1
-			set_light(0)
-			icon_state = "powersink0"
-			STOP_PROCESSING_POWER_OBJECT(src)
+			set_mode(CLAMPED_OFF)
 
 /obj/item/device/powersink/pwr_drain()
 	if(!attached)
-		return 0
+		set_mode(DISCONNECTED)
+		return
 
 	if(drained_this_tick)
 		return 1

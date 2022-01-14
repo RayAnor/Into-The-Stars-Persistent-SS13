@@ -127,9 +127,11 @@
 	recipes += new/datum/stack_recipe("Operating Table", /obj/machinery/optable, 10, time = 50, one_per_turf = 1)
 	recipes += new/datum/stack_recipe("Item Safe", /obj/structure/safe, 10, time = 50, one_per_turf = 1)
 	recipes += new/datum/stack_recipe("Target stake", /obj/structure/target_stake, 5, time = 10, one_per_turf = 1)
-//	recipes += new/datum/stack_recipe_list("Blast Doors Assemblies", list( \
+/*
+	recipes += new/datum/stack_recipe_list("Blast Doors Assemblies", list( \
 	new/datum/stack_recipe("assembly", /obj/structure/door_assembly/, 4, time = 50, one_per_turf = 1, on_floor = 1), \
 		))
+*/
 //	/obj/machinery/door/blast
 //	/obj/machinery/door/blast/shutters
 
@@ -240,11 +242,5 @@ material/silver/generate_recipes()
 	..()
 	recipes += new/datum/stack_recipe("Mirror Frame", /obj/item/frame/mirror, 2)
 
-
-
-
-
-
-
 material/marble/generate_recipes()
-..()
+	..()

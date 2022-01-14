@@ -1,6 +1,5 @@
 /stack
-	var/list
-		contents=new
+	var/list/contents=new
 	proc
 		Push(value)
 			contents+=value
